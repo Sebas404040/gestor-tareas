@@ -1,6 +1,4 @@
 import inquirer from 'inquirer';
-import fs from 'fs/promises';
-import { Console } from 'console';
 
 const RUTA_TAREAS = "./JSON/tareas.json"
 
