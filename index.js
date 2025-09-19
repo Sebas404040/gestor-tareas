@@ -1,6 +1,8 @@
 import mostrarMenu from './utils/menu.js';
 import inquirer from 'inquirer';
-import { listarTareas, agregarTarea, editarTarea, eliminarTarea } from './controllers/tareasController.js';
+import GestorTareas from './controllers/tareasController.js';
+
+const gestorTareas = new GestorTareas();
 
 async function pausar() {
 
@@ -21,7 +23,7 @@ async function main() {
 
     switch (opcion) {
       case '1':
-        await agregarTarea();
+        await gestorTareas.agregarTarea();
         await pausar()
         break;
       case '2':
