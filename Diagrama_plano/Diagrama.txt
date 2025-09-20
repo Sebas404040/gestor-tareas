@@ -1,0 +1,63 @@
+classDiagram
+    direction LR
+
+    class GestorTareas {
+        +agregarTarea(descripcion)
+        +listarTareas()
+        +marcarTareaCompleta()
+        +eliminarTarea()
+    }
+
+    class Tarea {
+        <<Model>>
+        -_id: string
+        -descripcion: string
+        -completada: boolean
+        +constructor(id, descripcion, completada)
+        +alternarEstado()
+    }
+
+    class Database {
+        <<Singleton>>
+        -cliente: MongoClient
+        -db: Db
+        +realizarConexion()
+        +getCollection(name)
+        +desconectar()
+    }
+
+    class Notificador {
+        <<Singleton>>
+        +tareaAgregada()
+        +error(mensaje, error)
+        +info(mensaje)
+        +despedida()
+        +elegirEstado()
+        +mostrarTareas(tareas)
+        +tareaMarcadaCompleta()
+        +tareaEliminada()
+        +eliminacionCancelada()
+        +elegirTareasParaCompletar(tareas)
+        +elegirTarea(tareas)
+    }
+
+    class main {
+        <<Entry Point>>
+        +main()
+        +pausar()
+        +mostrarMenu()
+    }
+
+    main ..> GestorTareas : "crea y usa"
+    main ..> Database : "se usa para desconectar"
+    main ..> Notificador : "se usa para despedida"
+    main ..> inquirer : " Se usa para pausar y obtener descripción"
+
+    GestorTareas "1" *-- "0..*" Tarea : "Crea y gestiona"
+    GestorTareas ..> Database : "Se usa para obtener colección"
+    GestorTareas ..> Notificador : "Se Usa para mostrar mensajes"
+
+    Notificador ..> inquirer : "Se Usa para prompts"
+    Notificador ..> chalk : "Se Usa para dar estilo"
+
+    Database ..> mongodb : "Usa"
