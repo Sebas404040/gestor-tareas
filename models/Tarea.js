@@ -9,8 +9,8 @@ class Tarea {
         if (typeof completada !== "boolean") {
             throw new Error("El atributo 'completada' debe ser un booleano.");
         }
-        
-        this.id = id;
+    
+        this._id = id 
         this.descripcion = descripcion.trim();
         this.completada = completada;
     }

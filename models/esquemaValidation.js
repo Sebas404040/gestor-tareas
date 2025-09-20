@@ -2,7 +2,7 @@ db.createCollection("tareas", {
     validator: {
       $jsonSchema: {
         bsonType: "object",
-        required: ["descripcion", "completada", "id"],
+        required: ["_id", "descripcion", "completada"],
         properties: {
           descripcion: {
             bsonType: "string",
@@ -13,7 +13,7 @@ db.createCollection("tareas", {
             bsonType: "bool",
             description: "Debe ser true o false"
           },
-          id: {
+          _id: {
             bsonType: "string",
             description: "Debe ser un id valido"
           }
