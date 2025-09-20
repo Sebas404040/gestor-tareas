@@ -9,7 +9,7 @@ export default async function mostrarMenu() {
       choices: [
         { name: '1. Agregar tarea', value: '1' },
         { name: '2. Listar tareas', value: '2' },
-        { name: '3. Editar tarea', value: '3' },
+        { name: '3. Marcar tarea como completada', value: '3' },
         { name: '4. Eliminar tarea', value: '4' },
         { name: '5. Salir', value: '5' }
       ]

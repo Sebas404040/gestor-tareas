@@ -40,10 +40,12 @@ async function main() {
         await pausar()
         break;
       case '3':
-        await editarTarea();
+        await gestorTareas.marcarTareaCompleta();
+        await pausar();
         break;
       case '4':
-        await eliminarTarea();
+        await gestorTareas.eliminarTarea();
+        await pausar();
         break;
       case '5':
         salir = true;
