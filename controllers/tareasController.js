@@ -1,27 +1,27 @@
-import inquirer from 'inquirer';
-import Tarea from './Tarea.js';
+import Tarea from '../models/Tarea.js';
 import database from '../config/database.js'; 
-
+import notificador from '../utils/notificador.js';
 
 class GestorTareas {
   async agregarTarea(descripcion) {
-    const { descripcion } = await inquirer.prompt([
-      {
-        type: "input",
-        name: "descripcion",
-        message: "Descripción de la tarea"
-      }
-    ])
-
-    const tareaNueva = new Tarea(Date.now(), descripcion, false);
+    const tareaNueva = new Tarea(Date.now().toString(), descripcion, false);
 
     try {
-      await database.realizarConexion();
       const collection = await database.getCollection('tareas');
       await collection.insertOne(tareaNueva);
-      console.log('Tarea agregada exitosamente.');
+      notificador.tareaAgregada();
     } catch (error) {
-      console.error('Error al agregar la tarea:', error);
+      notificador.error('Error al agregar la tarea:', error);
+    }
+  }
+
+  async listarTareas() {
+    try {
+      const collection = await database.getCollection('tareas');
+      const tareas = await collection.find({}).toArray();
+      notificador.mostrarTareas(tareas);
+    } catch (error) {
+      notificador.error('Error al cargar tareas:', error);
     }
   }
 }
