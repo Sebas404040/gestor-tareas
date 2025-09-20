@@ -98,6 +98,45 @@ Se abrirá el menú interactivo en consola con las siguientes opciones:
 
 ---
 
+## ⚙️ Cómo se configuró la conexión a MongoDB
+
+Para conectar la aplicación a una base de datos remota en **MongoDB Atlas**, se siguió un proceso cuidadoso para proteger las credenciales y asegurar una conexión reutilizable y eficiente.
+
+### Proceso de Conexión 🛞
+
+Antes de iniciar con el proceso se debe instalar la libreria de mongodb
+
+```javascript
+import { MongoClient } from "mongodb";
+```
+
+1.  **Uso de Variables de Entorno**: Para evitar exponer datos sensibles (como usuarios y contraseñas) en el código fuente, se utilizó la librería `dotenv`. Esto nos permite definir las credenciales en un archivo `.env` que no se sube al repositorio de código.
+
+    *   En la raíz del proyecto, crea un archivo `.env`.
+    *   Dentro de este archivo, define las siguientes variables con tus datos de Atlas:
+        ```dotenv
+        # Credenciales de MongoDB Atlas
+        DB_USER="tu_usuario_de_base_de_datos"
+        DB_PASSWORD="tu_contraseña_de_base_de_datos"
+        DB_CLUSTER="tu_cluster.mongodb.net"
+        DB_NAME="nombre_de_tu_base_de_datos"
+        ```
+
+2.  **Construcción Dinámica de la URI**: En el archivo `config/database.js`, se importan estas variables de entorno desde `process.env` y se utilizan para construir dinámicamente la cadena de conexión (URI) de MongoDB.
+    ```javascript
+    const URI = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@${DB_CLUSTER}/?retryWrites=true&w=majority&appName=Cluster0`;
+    ```
+
+3.  **Patrón de Diseño Singleton**: Se implementó una clase `Database` utilizando el patrón Singleton. Esto asegura que solo exista una única instancia de la conexión a la base de datos en toda la aplicación. El método `realizarConexion()` verifica si ya existe una conexión activa (`this.db !== null`); si no es así, la crea. Esto evita abrir y cerrar múltiples conexiones innecesariamente, mejorando el rendimiento.
+
+4.  **Gestión de la Conexión**:
+    *   **`realizarConexion()`**: Este método asíncrono se encarga de conectar el cliente a MongoDB Atlas y selecciona la base de datos especificada en `DB_NAME`.
+    *   **`getCollection(name)`**: Proporciona un acceso sencillo a cualquier colección de la base de datos, reutilizando la conexión ya establecida.
+    *   **`desconectar()`**: Cierra la conexión de forma segura cuando la aplicación termina.
+
+Este enfoque modular y seguro, centralizado en `config/database.js`, permite que el resto de la aplicación (como los controladores) interactúe con la base de datos de una manera limpia y abstraída.
+
+
 ## 📦 Dependencias principales
 
 | Paquete  | Uso                                             |
@@ -125,3 +164,4 @@ Se abrirá el menú interactivo en consola con las siguientes opciones:
 - Sebastion Gómez
 
 - Michel Rodríguez
+
