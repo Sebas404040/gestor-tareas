@@ -77,9 +77,7 @@ gestor-tareas-entregaMongo/
    * Crea un archivo `.env` en la raíz del proyecto.
    * Agrega tu URI de conexión:
 
-     ```env
-     MONGODB_URI=mongodb+srv://<usuario>:<password>@cluster.mongodb.net/gestor AQUIIIIIIIII
-     ```
+   
 
 ---
 
