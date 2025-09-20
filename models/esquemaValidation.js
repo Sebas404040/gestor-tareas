@@ -1,3 +1,4 @@
+// Esquema de validación para la colección "tareas"
 db.createCollection("tareas", {
     validator: {
       $jsonSchema: {

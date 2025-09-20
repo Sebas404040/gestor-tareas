@@ -1,11 +1,14 @@
+// Importaciones
 import mostrarMenu from './utils/menu.js';
 import inquirer from 'inquirer';
 import GestorTareas from './controllers/tareasController.js';
 import database from './config/database.js';
 import notificador from './utils/notificador.js';
 
+// Se instancia un nuevo Gestor de tareas
 const gestorTareas = new GestorTareas();
 
+// Función para confirmar 
 async function pausar() {
 
   await inquirer.prompt([
@@ -17,6 +20,7 @@ async function pausar() {
   ]);
 }
 
+// Función que ejecuta el menu de opciones 
 async function main() {
   let salir = false;
 
@@ -56,4 +60,5 @@ async function main() {
   }
 }
 
+// INICIO DEL PROGRAMA
 main();

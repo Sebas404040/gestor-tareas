@@ -1,5 +1,10 @@
+// Se define la clase Tarea con validaciones en el constructor
 class Tarea {
+
+    // Se construyen los atributos de la tarea
     constructor(id, descripcion, completada) {
+
+        // Validaciones básicas
         if (!id) {
             throw new Error("El ID es obligatorio.");
         }
@@ -10,13 +15,10 @@ class Tarea {
             throw new Error("El atributo 'completada' debe ser un booleano.");
         }
     
+        // Se asignan los valores a los atributos
         this._id = id 
         this.descripcion = descripcion.trim();
         this.completada = completada;
-    }
-
-    alternarEstado() {
-        this.completada = !this.completada;
     }
 }
 

@@ -1,6 +1,10 @@
+// Se importa inquirer para la creación de menús interactivos
 import inquirer from 'inquirer';
 
+// Función para mostrar el menú y capturar la opción seleccionada
 export default async function mostrarMenu() {
+
+  // Armado del menú con inquirer
   const { opcion } = await inquirer.prompt([
     {
       type: 'list',
@@ -15,5 +19,7 @@ export default async function mostrarMenu() {
       ]
     }
   ]);
+
+  // Se retorna la opción seleccionada
   return opcion;
 }
