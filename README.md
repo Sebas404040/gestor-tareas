@@ -121,3 +121,7 @@ Se abrirá el menú interactivo en consola con las siguientes opciones:
 * Código modular, limpio y documentado.
 * CRUD funcional conectado a MongoDB.
 * README con instrucciones claras de instalación y ejecución.
+## 🤝​Autores
+- Sebastion Gómez
+
+- Michel Rodríguez
